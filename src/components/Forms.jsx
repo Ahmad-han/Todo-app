@@ -1,8 +1,11 @@
+import { useDispatch } from "react-redux"
+import { addTodo } from "../redux/TodoSlice";
 
 
 
 
-export const Forms = ({ text, addTodo, setText }) => {
+export const Forms = ({ text, setText }) => {
+  const dispatch = useDispatch();
     return (
         <div className="forms">
         <input
@@ -11,7 +14,7 @@ export const Forms = ({ text, addTodo, setText }) => {
          value={text}
          onChange={(e) => setText(e.target.value)}
          />
-        <button onClick={addTodo}>Добавить</button>
+        <button onClick={() => dispatch(addTodo({ text: text, setText: setText }))}>Добавить</button>
       </div>
     )
 }
