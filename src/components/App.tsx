@@ -1,13 +1,18 @@
-import { useState } from "react"
-import { Header } from "./components/Header"
-import { Forms } from "./components/Forms"
-import { Todos } from "./components/Todos"
+import React, { useState } from "react"
+import { Header } from "./Header"
+import { Forms } from "./Forms"
+import { Todos } from "./Todos"
+
+
+interface stateType {
+  favorite: boolean
+  text: string
+}
 
 
 
-
-export const App = () => {
-const [todos, setTodos] = useState( [
+export const App: React.FC = () => {
+const [todos, setTodos] = useState<Array<stateType>>( [
     {favorite: false, text: "Купить продукты"},
     {favorite: false, text: "Купить бананы"},
     {favorite: false, text: "Купить машину"},
@@ -17,7 +22,7 @@ const [todos, setTodos] = useState( [
 
 const [text, setText] = useState("")
 
-const deleteTodo = (indexOfDeletedItem) => {
+const deleteTodo = (indexOfDeletedItem: number): void => {
   const filterTodos = todos.filter((todo, index) => {
     if (index === indexOfDeletedItem) {
       return false
@@ -29,7 +34,7 @@ const deleteTodo = (indexOfDeletedItem) => {
 }
 
 
-const makeFavorite = (indexOfMakeFavorite) => {
+const makeFavorite = (indexOfMakeFavorite: number) => {
   const newTodos = todos.map((item, index) => {
     if (index === indexOfMakeFavorite) {
       return {
@@ -46,18 +51,20 @@ const makeFavorite = (indexOfMakeFavorite) => {
 const addTodo = () => {
 
   const newTodo = todos.find((todo) => todo.text)
-  if (newTodo.text === text || text === "") {
-    console.log("Это дело уже заявлено или оно пустое")
-  } else {
-    setTodos([ {
-      text: text,
-      favorite: false
-    },
-    ...todos
-  ])
-  setText("")
+  if (newTodo !== undefined) {
+    if (newTodo.text === text || text === "") {
+      console.log("Это дело уже заявлено или оно пустое")
+    } else {
+      setTodos([ {
+        text: text,
+        favorite: false
+      },
+      ...todos
+    ])
+    setText("")
+    }
   }
-}
+  }
 
 
   return (
