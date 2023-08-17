@@ -1,25 +1,27 @@
-import { useDispatch, useSelector } from "react-redux"
+import { useDispatch } from "react-redux"
 import { makeFavorite, deleteTodo } from "../redux/TodoSlice";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import styles from "../styles/todos.module.scss"
 
 
 
-export const Todos = () => {
+export const Todos: React.FC = () => {
   const dispatch = useDispatch();
-  const todos = useSelector((state) => state.todo.todos)
+  const todos = useTypedSelector((state) => state.todo.todos)
     return (
         todos.map((todo, index) => {
             return(
               <div className="todos">
-                 <div className={`todo ${todo.favorite ? "selected" : ""}`}>
-                    <div className="favorite">
+                 <div className={`${styles.todo} ${todo.favorite ? `${styles.selected}` : ""}`}>
+                    <div className={styles.favorite}>
                       <button onClick={() => dispatch(makeFavorite({ index: index }))}>
                          ★
                       </button>
                     </div>
-                    <div className="todo_text">
+                    <div className={styles.todo_text}>
                      {todo.text}
                     </div>
-                    <div className="actions">
+                    <div className={styles.actions}>
                       <button onClick={() => dispatch(deleteTodo({ index: index }))}>&#10005;</button>
                     </div>
                  </div>

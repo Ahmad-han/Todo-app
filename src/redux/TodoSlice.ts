@@ -1,6 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-const initialState = {
+interface initialStateType {
+  todos: Array<{
+    favorite: boolean
+    text: string
+  }>
+}
+
+
+
+const initialState: initialStateType = {
   todos: [
     {favorite: false, text: "Купить продукты"},
     {favorite: false, text: "Купить бананы"},
